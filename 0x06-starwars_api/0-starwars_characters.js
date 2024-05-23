@@ -1,22 +1,22 @@
 #!/usr/bin/node
-const request = require("request");
-const util = require("util");
+const request = require('request');
+const util = require('util');
 
 const promiseR = util.promisify(request);
 const [, , id] = process.argv;
 
 const URL = `https://swapi-api.alx-tools.com/api/films/${id}`;
 
-async function fetchData(url) {
+async function fetchData (url) {
   try {
-    const bodyData = (await promiseR(url)).body;
-    const parsedData = JSON.parse(bodyData);
+    const body = (await promiseR(url)).body;
+    const data = JSON.parse(body);
 
-    for (const char of parsedData.characters) {
+    for (const character of data.characters) {
       try {
-        const charDt = (await promiseR(char)).body;
-        const charNm = JSON.parse(charDt).name;
-        console.log(charNm);
+        const charData = (await promiseR(character)).body;
+        const charName = JSON.parse(charData).name;
+        console.log(charName);
       } catch (err) {
         console.log(err);
       }
